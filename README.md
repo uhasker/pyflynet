@@ -19,15 +19,15 @@ This can be helpful for network troubleshooting, monitoring, and various other u
 
 ### Basic Usage
 
-Run the script with desired arguments:
+Run the script with the desired arguments:
 
 ```sh
-python pyflynet.py --ip $IP_ADDRESS --every $EVERY_SECONDS --timeout $TIMEOUT_SECONDS
+python pyflynet.py --ip $IP_ADDRESS --db $DB_NAME --every $EVERY_SECONDS --timeout $TIMEOUT_SECONDS
 ```
 
 Run `python pyflynet.py -h` to get help:
 
-```sh
+```
 usage: pyflynet.py [-h] [--ip ip] [--db db] [--every every] [--timeout timeout]
 
 pyflynet
@@ -40,12 +40,41 @@ optional arguments:
   --timeout timeout  The timeout for each ping in seconds
 ```
 
-### Example
-
-Ping Google's public DNS server every 10 seconds with a timeout of 4 seconds and store the results in pyflynet.db:
+For example, here is you can ping Google's public DNS server every 10 seconds with a timeout of 4 seconds and store the results in pyflynet.db:
 
 ```sh
 python pyflynet.py --db pyflynet.db --ip 8.8.8.8 --every 10 --timeout 4
+```
+
+### Plotting Results
+
+Run the script with the desired arguments:
+
+```sh
+python pyflynet_plot.py --db $DB_NAME --startdate $START_DATE --enddate $END_DATE
+```
+
+Run `python pyflynet_plot.py` to get help:
+
+```
+usage: pyflynet_plot.py [-h] --db db --startdate startdate --enddate enddate [--figsizex figsizex] [--figsizey figsizey]
+
+pyflynet_plot
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --db db               The name of the SQLite database from which to read the ping results
+  --startdate startdate
+                        The start date from which to show results (e.g. 2024-01-01)
+  --enddate enddate     The end date up to which to show results (e.g. 2024-02-08)
+  --figsizex figsizex   The size of the figure (x axis)
+  --figsizey figsizey   The size of the figure (y axis)
+```
+
+For example, here is you can plot the results from pyflynet.db starting at 2024-01-01 and ending at 2024-02-08:
+
+```sh
+python pyflynet_plot.py --db pyflynet.db --startdate 2024-01-01 --enddate 2024-02-08
 ```
 
 ## Run under systemd
